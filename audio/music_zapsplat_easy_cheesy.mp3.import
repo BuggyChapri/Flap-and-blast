@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/music_zapsplat_easy_cheesy.mp3-0244d9e03de341eef571d7247b742371.mp3str"
+
+[deps]
+
+source_file="res://audio/music_zapsplat_easy_cheesy.mp3"
+dest_files=[ "res://.import/music_zapsplat_easy_cheesy.mp3-0244d9e03de341eef571d7247b742371.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

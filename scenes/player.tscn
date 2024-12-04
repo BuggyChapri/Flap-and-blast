@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/player_animation.png" type="Texture" id=1]
+[ext_resource path="res://scripts/player.gd" type="Script" id=2]
+[ext_resource path="res://audio/jump.wav" type="AudioStream" id=3]
+[ext_resource path="res://audio/pickupCoin.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/hitHurt (1).wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/laserShoot.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/explosion.wav" type="AudioStream" id=7]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.25, 6.75 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 8.5
+
+[node name="player" type="KinematicBody2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 2, 2.5 )
+frames = SubResource( 4 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.25, -4.75 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+process_mode = 0
+limit_top = -250
+limit_bottom = 360
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 7.0
+offset_v = 1.0
+editor_draw_limits = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 3.5, -2 )
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( 1.5, -4.5 )
+shape = SubResource( 6 )
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="points" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="bossdied" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

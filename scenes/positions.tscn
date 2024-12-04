@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="positions" type="Node2D"]
+
+[node name="up_position" type="Position2D" parent="."]
+position = Vector2( 453, 19 )
+
+[node name="down_position" type="Position2D" parent="."]
+position = Vector2( 445, 429 )

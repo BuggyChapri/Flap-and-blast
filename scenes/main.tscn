@@ -1,0 +1,172 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scenes/lower_pipe.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/upper.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/lower_position.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/up_position.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/main.gd" type="Script" id=6]
+[ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://fonts/Inter,Pixelify_Sans/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/score.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scripts/ammo.gd" type="Script" id=11]
+[ext_resource path="res://scripts/health.gd" type="Script" id=12]
+[ext_resource path="res://scripts/ammo_left.gd" type="Script" id=13]
+[ext_resource path="res://audio/music_zapsplat_easy_cheesy.mp3" type="AudioStream" id=14]
+[ext_resource path="res://scripts/boss.gd" type="Script" id=15]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=5]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[node name="main" type="Node2D"]
+position = Vector2( -5, 0 )
+script = ExtResource( 6 )
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+position = Vector2( -488, 180 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="player"]
+
+[node name="score" parent="player/CanvasLayer2" instance=ExtResource( 10 )]
+margin_left = -10.0
+margin_top = -1.0
+margin_right = 95.0
+margin_bottom = 37.0
+rect_clip_content = true
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 1 )
+text = "score - 0"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="enemy_killed" type="Label" parent="player/CanvasLayer2"]
+margin_left = 11.0
+margin_top = 34.0
+margin_right = 127.0
+margin_bottom = 54.0
+custom_fonts/font = SubResource( 2 )
+text = "Enemy killed"
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="health" type="Label" parent="player/CanvasLayer2"]
+margin_left = -4.0
+margin_top = 61.0
+margin_right = 113.0
+margin_bottom = 85.0
+custom_fonts/font = SubResource( 3 )
+text = "Health - 100"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ammo" type="Label" parent="player/CanvasLayer2"]
+margin_left = 8.0
+margin_top = 92.0
+margin_right = 121.0
+margin_bottom = 112.0
+custom_fonts/font = SubResource( 4 )
+text = "Ammo left"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="boss" type="Label" parent="player/CanvasLayer2"]
+margin_left = -13.0
+margin_top = 129.0
+margin_right = 156.0
+margin_bottom = 149.0
+custom_fonts/font = SubResource( 5 )
+text = "Boss health"
+align = 1
+valign = 1
+uppercase = true
+script = ExtResource( 15 )
+
+[node name="spawn_position" type="Position2D" parent="player"]
+position = Vector2( 169.5, -2 )
+
+[node name="uper_pipe" parent="." instance=ExtResource( 3 )]
+position = Vector2( 69, 11 )
+
+[node name="Position2D" type="Position2D" parent="uper_pipe"]
+position = Vector2( 0.454545, 11 )
+
+[node name="lower_pipe" parent="." instance=ExtResource( 1 )]
+position = Vector2( 67, 68 )
+
+[node name="Position2D" type="Position2D" parent="lower_pipe"]
+position = Vector2( 0.727274, 16.1818 )
+
+[node name="lower_position" parent="." instance=ExtResource( 4 )]
+position = Vector2( 398, 325 )
+
+[node name="up_position" parent="." instance=ExtResource( 5 )]
+position = Vector2( 382, 88 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="spawner" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="boss_spawner" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="spawner_start" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="ParallaxBackground" parent="." instance=ExtResource( 9 )]
+
+[node name="enemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1276, -360 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -15.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="spawner" to="." method="_on_spawner_timeout"]
+[connection signal="timeout" from="boss_spawner" to="." method="_on_boss_spawner_timeout"]
+[connection signal="timeout" from="spawner_start" to="." method="_on_spawner_start_timeout"]
